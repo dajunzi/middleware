@@ -73,7 +73,7 @@ public:
 		}
 	}
 
-	void send_message(const con_list& wslist, server::message_ptr msg) {
+	void send_message(const con_list& wslist, const server::message_ptr& msg) {
 		std::vector<connection_hdl> failed_hdl;
 		for (auto it : wslist) {
 			try {
