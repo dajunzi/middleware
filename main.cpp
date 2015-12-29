@@ -43,7 +43,7 @@ public:
 	}
 
 	void on_open(connection_hdl hdl) {
-		//do nothing
+		std::cout << "A new connection established!" << std::endl;
 	}
 
 	void on_close(connection_hdl hdl) {
@@ -53,6 +53,9 @@ public:
 	}
 
 	void on_message(connection_hdl hdl, server::message_ptr msg) {
+		count++;
+		if (count%1000 == 0) std::cout << "get " << count << " messages" << std::endl;
+
 		string str = msg->get_payload();
 		string symbol;
 		getNext(symbol, str);
@@ -98,6 +101,7 @@ private:
 	server m_server;
 	con_list wildcard;
 	std::map<string, con_list> ws;
+	int count = 0;
 };
 
 
