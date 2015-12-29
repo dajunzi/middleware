@@ -105,7 +105,11 @@ private:
 };
 
 
-int main() {
+int main(int argc, char* argv[]) {
+	int port = 9002;
+	if (argc > 1) port = atoi(argv[1]);
+	std::cout << "Server runs at port " << port << std::endl;
+
 	broadcast_server server;
-	server.run(9002);
+	server.run(port);
 }
