@@ -1,13 +1,13 @@
 # middleware
 
 Compile:
-
 g++ -std=c++11 main.cpp -I websocketpp-master/ -lboost_system -O2
 
 
-Run:
 
+Run:
 ./a.out [port]
+
 
 
 Requirements:
