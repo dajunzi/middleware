@@ -47,14 +47,15 @@ public:
 	}
 
 	void on_close(connection_hdl hdl) {
+		std::cout << "on close function called" << std::endl;
 		wildcard.erase(hdl);
-		for (auto it : ws)
+		for (auto& it : ws)
 			it.second.erase(hdl);
 	}
 
 	void on_message(connection_hdl hdl, server::message_ptr msg) {
-		count++;
-		if (count%1000 == 0) std::cout << "get " << count << " messages" << std::endl;
+		cget++;
+		//if (cget%1000 == 0) std::cout << "get " << cget << " messages" << std::endl;
 
 		string str = msg->get_payload();
 		string symbol;
@@ -73,6 +74,9 @@ public:
 		else {
 			send_message(wildcard, msg);
 			send_message(ws[symbol], msg);
+
+			csend++;
+			//if (csend%1000 == 0) std::cout << "send " << csend << " messages" << std::endl;
 		}
 	}
 
@@ -83,6 +87,7 @@ public:
 				m_server.send(it, msg);
 			}
 			catch (...) {
+				std::cout << "getcha" << std::endl;
 				failed_hdl.push_back(it);
 			}
 		}
@@ -101,7 +106,8 @@ private:
 	server m_server;
 	con_list wildcard;
 	std::map<string, con_list> ws;
-	int count = 0;
+	int cget = 0;
+	int csend = 0;
 };
 
 
