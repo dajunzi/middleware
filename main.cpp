@@ -43,11 +43,11 @@ public:
 	}
 
 	void on_open(connection_hdl hdl) {
-		std::cout << "A new connection established!" << std::endl;
+		std::cout << "on open" << std::endl;
 	}
 
 	void on_close(connection_hdl hdl) {
-		std::cout << "on close function called" << std::endl;
+		std::cout << "on close" << std::endl;
 		wildcard.erase(hdl);
 		for (auto& it : ws)
 			it.second.erase(hdl);
@@ -82,7 +82,7 @@ public:
 
 	void send_message(const con_list& wslist, const server::message_ptr& msg) {
 		std::vector<connection_hdl> failed_hdl;
-		for (auto it : wslist) {
+		for (const auto& it : wslist) {
 			try {
 				m_server.send(it, msg);
 			}
